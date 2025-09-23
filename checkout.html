@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - ShareX.ID</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="logo.png" type="image/png">
+  
+  <!-- Preconnect for better performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10b981',
+            secondary: '#059669',
+            accent: '#34d399',
+            dark: '#064e3b',
+            neutral: '#6b7280',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+          },
+          fontFamily: {
+            'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 8s ease-in-out infinite',
+            'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'fade-in': 'fadeIn 0.3s ease-out',
+            'slide-up': 'slideUp 0.3s ease-out',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .modern-card {
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid rgba(16, 185, 129, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .modern-card:hover {
+      box-shadow: 0 10px 20px -10px rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    
+    .btn-modern {
+      background: #10b981;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-modern::before { content: none; }
+    
+    .btn-modern:hover::before { content: none; }
+    
+    .btn-modern:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(16, 185, 129, 0.25);
+    }
+    
+    .form-input {
+      @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+    }
+    
+    .package-card {
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .package-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+    }
+    
+    .package-card.selected {
+      border-color: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.12);
+      background: #ffffff;
+    }
+    
+    .payment-method {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .payment-method:hover {
+      background-color: #f8fafc;
+    }
+    
+    .payment-method.selected {
+      border-color: #10b981;
+      background-color: #f0fdf4;
+    }
+
+    .step-indicator {
+      @apply flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-all duration-300;
+    }
+    
+    .step-indicator.active {
+      @apply bg-primary text-white;
+    }
+    
+    .step-indicator.completed {
+      @apply bg-success text-white;
+    }
+    
+    .step-indicator.inactive {
+      @apply bg-gray-200 text-gray-500;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans antialiased">
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-3">
+          <img src="logo.png" alt="ShareX.id Logo" class="w-8 h-8 sm:w-10 sm:h-10" width="40" height="40" loading="eager">
+          <span class="text-xl sm:text-2xl font-bold text-gradient">ShareX.ID</span>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-6 lg:space-x-10">
+          <a href="index-final.html#home" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Home</a>
+          <a href="index-final.html#services" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Layanan</a>
+          <a href="index-final.html#group-patungan" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Group</a>
+          <a href="index-final.html#cara-kerja" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Cara Kerja</a>
+          <a href="index-final.html#tentang" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Tentang</a>
+          <a href="index-final.html#testimoni" class="text-gray-600 hover:text-primary transition-colors font-medium text-sm lg:text-base">Testimoni</a>
+          <a href="checkout.html" class="bg-primary hover:bg-secondary text-white px-4 lg:px-5 py-2 rounded-full font-medium transition-colors duration-200 text-sm lg:text-base text-center block">
+            Mulai Sekarang
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle mobile menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4">
+        <div class="space-y-3">
+          <a href="index-final.html#home" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Home</a>
+          <a href="index-final.html#services" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Layanan</a>
+          <a href="index-final.html#group-patungan" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Group</a>
+          <a href="index-final.html#cara-kerja" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Cara Kerja</a>
+          <a href="index-final.html#tentang" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Tentang</a>
+          <a href="index-final.html#testimoni" class="block text-gray-600 hover:text-primary transition-colors font-medium py-2">Testimoni</a>
+          <a href="checkout.html" class="w-full bg-primary hover:bg-secondary text-white px-6 py-3 rounded-full font-medium transition-colors duration-200 mt-4 text-center block">
+            Mulai Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-20 pb-16 min-h-screen">
+    <!-- Progress Steps -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+      <div class="flex items-center justify-center space-x-8">
+        <div class="flex items-center">
+          <div class="step-indicator active" id="step1">1</div>
+          <span class="ml-2 text-sm font-medium text-gray-700">Pilih Paket</span>
+        </div>
+        <div class="w-16 h-0.5 bg-gray-200"></div>
+        <div class="flex items-center">
+          <div class="step-indicator inactive" id="step2">2</div>
+          <span class="ml-2 text-sm font-medium text-gray-500">Detail Pembayaran</span>
+        </div>
+        <div class="w-16 h-0.5 bg-gray-200"></div>
+        <div class="flex items-center">
+          <div class="step-indicator inactive" id="step3">3</div>
+          <span class="ml-2 text-sm font-medium text-gray-500">Konfirmasi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <!-- Step 1: Package Selection -->
+          <div id="step-1-content" class="animate-fade-in">
+            <div class="modern-card rounded-3xl p-8 mb-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">Pilih Paket Langganan</h2>
+              <p class="text-gray-600 mb-8">Pilih paket yang sesuai dengan kebutuhan Anda</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Netflix Package -->
+                <div class="package-card modern-card rounded-2xl p-6 border-2" data-package="netflix" data-price="53938" data-original="186000" data-discount="71">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-8.412-4.773L8.766 19.645c-.34.77-1.52.77-1.86 0L.084 7.227C-.256 6.457.405 5.5 1.244 5.5h4.337l3.419 7.727L12.419 5.5h4.337c.839 0 1.5.957 1.16 1.727z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 text-lg">Netflix Premium</h3>
+                      <p class="text-sm text-gray-500">4K Ultra HD, 5 Devices</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-sm text-gray-500 line-through">Rp 186.000</span>
+                      <span class="bg-red-100 text-red-600 px-2 py-1 rounded-lg text-xs font-semibold">HEMAT 71%</span>
+                    </div>
+                    <div class="text-2xl font-black text-red-600">
+                      Rp 53.938<span class="text-lg font-normal text-gray-500">/bulan</span>
+                    </div>
+                  </div>
+
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Streaming 4K Ultra HD
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      5 Profil Terpisah
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Download Offline
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Spotify Package -->
+                <div class="package-card modern-card rounded-2xl p-6 border-2" data-package="spotify" data-price="28725" data-original="54990" data-discount="48">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 text-lg">Spotify Premium</h3>
+                      <p class="text-sm text-gray-500">Music Unlimited</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-sm text-gray-500 line-through">Rp 54.990</span>
+                      <span class="bg-green-100 text-green-600 px-2 py-1 rounded-lg text-xs font-semibold">HEMAT 48%</span>
+                    </div>
+                    <div class="text-2xl font-black text-green-600">
+                      Rp 28.725<span class="text-lg font-normal text-gray-500">/bulan</span>
+                    </div>
+                  </div>
+
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      80+ Juta Lagu Premium
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Download & Offline
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Audio Ultra HD (320kbps)
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- YouTube Premium Package -->
+                <div class="package-card modern-card rounded-2xl p-6 border-2" data-package="youtube" data-price="37035" data-original="79000" data-discount="53">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-600 to-red-700 rounded-2xl flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 text-lg">YouTube Premium</h3>
+                      <p class="text-sm text-gray-500">Bebas Iklan + Music</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-sm text-gray-500 line-through">Rp 79.000</span>
+                      <span class="bg-red-100 text-red-600 px-2 py-1 rounded-lg text-xs font-semibold">HEMAT 53%</span>
+                    </div>
+                    <div class="text-2xl font-black text-red-600">
+                      Rp 37.035<span class="text-lg font-normal text-gray-500">/bulan</span>
+                    </div>
+                  </div>
+
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Video 100% Bebas Iklan
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Background & Picture-in-Picture
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      YouTube Music Premium
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- ChatGPT Plus Package -->
+                <div class="package-card modern-card rounded-2xl p-6 border-2" data-package="chatgpt" data-price="68246" data-original="307000" data-discount="78">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 text-lg">ChatGPT Plus</h3>
+                      <p class="text-sm text-gray-500">GPT-4 & DALL-E 3</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-sm text-gray-500 line-through">Rp 307.000</span>
+                      <span class="bg-green-100 text-green-600 px-2 py-1 rounded-lg text-xs font-semibold">HEMAT 78%</span>
+                    </div>
+                    <div class="text-2xl font-black text-primary">
+                      Rp 68.246<span class="text-lg font-normal text-gray-500">/bulan</span>
+                    </div>
+                  </div>
+
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      GPT-4 Turbo & GPT-4o Access
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      DALL-E 3 Image Generator
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      Priority Access
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-8 flex justify-end">
+                <button id="next-step-1" class="btn-modern text-white px-8 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                  Lanjutkan →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Payment Details -->
+          <div id="step-2-content" class="hidden">
+            <div class="modern-card rounded-3xl p-8 mb-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">Detail Pembayaran</h2>
+              <p class="text-gray-600 mb-8">Lengkapi informasi untuk melanjutkan pembayaran</p>
+
+              <form id="payment-form" class="space-y-6">
+                <!-- Personal Information -->
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-4">Informasi Pribadi</h3>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
+                      <input type="text" name="name" class="form-input" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                      <input type="email" name="email" class="form-input" placeholder="email@example.com" required>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Nomor WhatsApp *</label>
+                      <input type="tel" name="phone" class="form-input" placeholder="08xxxxxxxxxx" required>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Durasi Berlangganan</label>
+                      <select class="form-input" id="duration">
+                        <option value="1">1 Bulan</option>
+                        <option value="3">3 Bulan (Diskon 5%)</option>
+                        <option value="6">6 Bulan (Diskon 10%)</option>
+                        <option value="12">12 Bulan (Diskon 15%)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-4">Metode Pembayaran</h3>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="payment-method modern-card rounded-xl p-4 border-2" data-method="whatsapp">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.516"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">WhatsApp Payment</h4>
+                          <p class="text-sm text-gray-500">Bayar via WhatsApp dengan mudah</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="payment-method modern-card rounded-xl p-4 border-2" data-method="bank">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">Transfer Bank</h4>
+                          <p class="text-sm text-gray-500">BCA, Mandiri, BRI, BNI</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="payment-method modern-card rounded-xl p-4 border-2" data-method="ewallet">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">E-Wallet</h4>
+                          <p class="text-sm text-gray-500">OVO, GoPay, DANA, ShopeePay</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="payment-method modern-card rounded-xl p-4 border-2" data-method="qris">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+                          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">QRIS</h4>
+                          <p class="text-sm text-gray-500">Scan QR untuk pembayaran</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="mt-8 flex justify-between">
+                <button id="back-step-2" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+                  ← Kembali
+                </button>
+                <button id="next-step-2" class="btn-modern text-white px-8 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                  Lanjutkan →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Confirmation -->
+          <div id="step-3-content" class="hidden">
+            <div class="modern-card rounded-3xl p-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">Konfirmasi Pesanan</h2>
+              <p class="text-gray-600 mb-8">Periksa kembali detail pesanan Anda sebelum melanjutkan</p>
+
+              <div id="order-summary" class="space-y-6">
+                <!-- Order details will be populated by JavaScript -->
+              </div>
+
+              <div class="mt-8 flex justify-between">
+                <button id="back-step-3" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+                  ← Kembali
+                </button>
+                <button id="complete-order" class="btn-modern text-white px-8 py-3 rounded-xl font-semibold">
+                  Konfirmasi Pesanan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="modern-card rounded-3xl p-6 sticky top-24">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Ringkasan Pesanan</h3>
+            
+            <div id="selected-package" class="hidden">
+              <div class="border rounded-xl p-4 mb-6">
+                <div class="flex items-center gap-3 mb-3">
+                  <div id="package-icon" class="w-10 h-10 rounded-xl flex items-center justify-center"></div>
+                  <div>
+                    <h4 id="package-name" class="font-semibold text-gray-900"></h4>
+                    <p id="package-desc" class="text-sm text-gray-500"></p>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-gray-600">Harga per bulan</span>
+                  <span id="package-price" class="font-semibold text-gray-900"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Subtotal</span>
+                <span id="subtotal" class="font-semibold">-</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Durasi</span>
+                <span id="duration-display" class="font-semibold">-</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Diskon</span>
+                <span id="discount-amount" class="font-semibold text-green-600">-</span>
+              </div>
+              <hr class="border-gray-200">
+              <div class="flex justify-between text-lg">
+                <span class="font-semibold text-gray-900">Total</span>
+                <span id="total-price" class="font-bold text-primary">-</span>
+              </div>
+            </div>
+
+            <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="font-semibold text-green-800">Jaminan 100% Legal</span>
+              </div>
+              <p class="text-sm text-green-700">Semua akun menggunakan family/group plan resmi dari provider.</p>
+            </div>
+
+            <div class="text-center">
+              <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-4">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                </svg>
+                Pembayaran aman & terenkripsi
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 sm:py-16 bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8 sm:mb-12">
+        <div class="text-center sm:text-left">
+          <div class="flex items-center justify-center sm:justify-start space-x-3 mb-4 sm:mb-6">
+            <img src="logo.png" alt="ShareX.id Logo" class="w-8 h-8 sm:w-10 sm:h-10" width="40" height="40" loading="lazy">
+            <span class="text-xl sm:text-2xl font-bold">ShareX.ID</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base">Cara cerdas mengakses layanan premium melalui patungan akun yang aman.</p>
+        </div>
+
+        <div class="text-center sm:text-left">
+          <h3 class="font-bold mb-4 sm:mb-6 text-base sm:text-lg">Menu</h3>
+          <ul class="space-y-2 sm:space-y-3 text-gray-600 text-sm sm:text-base">
+            <li><a href="index-final.html#home" class="hover:text-primary transition-colors">Home</a></li>
+            <li><a href="index-final.html#services" class="hover:text-primary transition-colors">Layanan</a></li>
+            <li><a href="index-final.html#cara-kerja" class="hover:text-primary transition-colors">Cara Kerja</a></li>
+            <li><a href="index-final.html#tentang" class="hover:text-primary transition-colors">Tentang</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center sm:text-left">
+          <h3 class="font-bold mb-4 sm:mb-6 text-base sm:text-lg">Layanan</h3>
+          <ul class="space-y-2 sm:space-y-3 text-gray-600 text-sm sm:text-base">
+            <li><a href="checkout.html?package=netflix" class="hover:text-primary transition-colors">Netflix Premium</a></li>
+            <li><a href="checkout.html?package=spotify" class="hover:text-primary transition-colors">Spotify Premium</a></li>
+            <li><a href="checkout.html?package=youtube" class="hover:text-primary transition-colors">YouTube Premium</a></li>
+            <li><a href="checkout.html?package=chatgpt" class="hover:text-primary transition-colors">ChatGPT Plus</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center sm:text-left">
+          <h3 class="font-bold mb-4 sm:mb-6 text-base sm:text-lg">Info</h3>
+          <ul class="space-y-2 sm:space-y-3 text-gray-600 text-sm sm:text-base">
+            <li><a href="index-final.html#tentang" class="hover:text-primary transition-colors">Tentang Kami</a></li>
+            <li><a href="index-final.html#testimoni" class="hover:text-primary transition-colors">Testimoni</a></li>
+            <li><a href="index-final.html#kontak" class="hover:text-primary transition-colors">Kontak</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-300 pt-6 sm:pt-8 text-center">
+        <p class="text-gray-500 text-sm sm:text-base">Copyright © 2025 ShareX.ID™ by PT. FAHOVE TEKNOLOGI INDONESIA All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-primary hover:bg-secondary text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center group" aria-label="Scroll to top" title="Kembali ke atas">
+    <svg class="w-6 h-6 transform group-hover:-translate-y-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <script>
+    // Global variables
+    let currentStep = 1;
+    let selectedPackage = null;
+    let selectedPaymentMethod = null;
+    let orderData = {};
+
+    // Package data
+    const packages = {
+      netflix: {
+        name: 'Netflix Premium',
+        desc: '4K Ultra HD, 5 Devices',
+        price: 53938,
+        original: 186000,
+        discount: 71,
+        icon: `<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-8.412-4.773L8.766 19.645c-.34.77-1.52.77-1.86 0L.084 7.227C-.256 6.457.405 5.5 1.244 5.5h4.337l3.419 7.727L12.419 5.5h4.337c.839 0 1.5.957 1.16 1.727z"/>
+        </svg>`,
+        bgColor: 'bg-gradient-to-br from-red-500 to-red-600'
+      },
+      spotify: {
+        name: 'Spotify Premium',
+        desc: 'Music Unlimited',
+        price: 28725,
+        original: 54990,
+        discount: 48,
+        icon: `<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>`,
+        bgColor: 'bg-gradient-to-br from-green-500 to-green-600'
+      },
+      youtube: {
+        name: 'YouTube Premium',
+        desc: 'Bebas Iklan + Music',
+        price: 37035,
+        original: 79000,
+        discount: 53,
+        icon: `<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>`,
+        bgColor: 'bg-gradient-to-br from-red-600 to-red-700'
+      },
+      chatgpt: {
+        name: 'ChatGPT Plus',
+        desc: 'GPT-4 & DALL-E 3',
+        price: 68246,
+        original: 307000,
+        discount: 78,
+        icon: `<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>`,
+        bgColor: 'bg-gradient-to-br from-primary to-accent'
+      }
+    };
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePackageSelection();
+      initializePaymentMethods();
+      initializeStepNavigation();
+      updateOrderSummary();
+      initializeMobileMenu();
+    });
+
+    // Mobile menu functionality
+    function initializeMobileMenu() {
+      const mobileMenuButton = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          const isExpanded = mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    }
+
+    // Package selection
+    function initializePackageSelection() {
+      const packageCards = document.querySelectorAll('.package-card');
+      packageCards.forEach(card => {
+        card.addEventListener('click', function() {
+          // Remove selected class from all cards
+          packageCards.forEach(c => c.classList.remove('selected'));
+          
+          // Add selected class to clicked card
+          this.classList.add('selected');
+          
+          // Store selected package
+          selectedPackage = this.dataset.package;
+          
+          // Enable next button
+          document.getElementById('next-step-1').disabled = false;
+          
+          // Update order summary
+          updateOrderSummary();
+        });
+      });
+    }
+
+    // Payment method selection
+    function initializePaymentMethods() {
+      const paymentMethods = document.querySelectorAll('.payment-method');
+      paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+          // Remove selected class from all methods
+          paymentMethods.forEach(m => m.classList.remove('selected'));
+          
+          // Add selected class to clicked method
+          this.classList.add('selected');
+          
+          // Store selected payment method
+          selectedPaymentMethod = this.dataset.method;
+          
+          // Enable next button
+          checkStep2Completion();
+        });
+      });
+
+      // Duration change handler
+      document.getElementById('duration').addEventListener('change', function() {
+        updateOrderSummary();
+        checkStep2Completion();
+      });
+
+      // Form input handlers
+      const formInputs = document.querySelectorAll('#payment-form input[required]');
+      formInputs.forEach(input => {
+        input.addEventListener('input', checkStep2Completion);
+      });
+    }
+
+    // Check if step 2 is completed
+    function checkStep2Completion() {
+      const formInputs = document.querySelectorAll('#payment-form input[required]');
+      let allFilled = true;
+      
+      formInputs.forEach(input => {
+        if (!input.value.trim()) {
+          allFilled = false;
+        }
+      });
+      
+      const hasPaymentMethod = selectedPaymentMethod !== null;
+      
+      document.getElementById('next-step-2').disabled = !(allFilled && hasPaymentMethod);
+    }
+
+    // Step navigation
+    function initializeStepNavigation() {
+      document.getElementById('next-step-1').addEventListener('click', () => goToStep(2));
+      document.getElementById('back-step-2').addEventListener('click', () => goToStep(1));
+      document.getElementById('next-step-2').addEventListener('click', () => goToStep(3));
+      document.getElementById('back-step-3').addEventListener('click', () => goToStep(2));
+      document.getElementById('complete-order').addEventListener('click', completeOrder);
+    }
+
+    // Go to specific step
+    function goToStep(step) {
+      // Hide all step contents
+      document.querySelectorAll('[id^="step-"][id$="-content"]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      
+      // Show target step content
+      document.getElementById(`step-${step}-content`).classList.remove('hidden');
+      
+      // Update step indicators
+      updateStepIndicators(step);
+      
+      // If going to step 3, populate order summary
+      if (step === 3) {
+        populateOrderConfirmation();
+      }
+      
+      currentStep = step;
+    }
+
+    // Update step indicators
+    function updateStepIndicators(activeStep) {
+      for (let i = 1; i <= 3; i++) {
+        const indicator = document.getElementById(`step${i}`);
+        indicator.className = 'step-indicator';
+        
+        if (i < activeStep) {
+          indicator.classList.add('completed');
+        } else if (i === activeStep) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.add('inactive');
+        }
+      }
+    }
+
+    // Update order summary
+    function updateOrderSummary() {
+      if (!selectedPackage) {
+        document.getElementById('selected-package').classList.add('hidden');
+        document.getElementById('subtotal').textContent = '-';
+        document.getElementById('total-price').textContent = '-';
+        return;
+      }
+
+      const pkg = packages[selectedPackage];
+      const duration = parseInt(document.getElementById('duration').value) || 1;
+      
+      // Show selected package
+      document.getElementById('selected-package').classList.remove('hidden');
+      document.getElementById('package-name').textContent = pkg.name;
+      document.getElementById('package-desc').textContent = pkg.desc;
+      document.getElementById('package-price').textContent = `Rp ${pkg.price.toLocaleString('id-ID')}`;
+      
+      // Update package icon
+      const iconContainer = document.getElementById('package-icon');
+      iconContainer.className = `w-10 h-10 rounded-xl flex items-center justify-center ${pkg.bgColor}`;
+      iconContainer.innerHTML = pkg.icon;
+
+      // Calculate pricing
+      const subtotal = pkg.price * duration;
+      let discountPercent = 0;
+      
+      if (duration === 3) discountPercent = 5;
+      else if (duration === 6) discountPercent = 10;
+      else if (duration === 12) discountPercent = 15;
+      
+      const discountAmount = subtotal * (discountPercent / 100);
+      const total = subtotal - discountAmount;
+
+      // Update display
+      document.getElementById('subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+      document.getElementById('duration-display').textContent = `${duration} bulan`;
+      document.getElementById('discount-amount').textContent = discountPercent > 0 ? `-Rp ${discountAmount.toLocaleString('id-ID')}` : '-';
+      document.getElementById('total-price').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+
+      // Store in order data
+      orderData = {
+        package: pkg,
+        duration: duration,
+        subtotal: subtotal,
+        discount: discountAmount,
+        total: total
+      };
+    }
+
+    // Populate order confirmation
+    function populateOrderConfirmation() {
+      const formData = new FormData(document.getElementById('payment-form'));
+      const summary = document.getElementById('order-summary');
+      
+      const pkg = packages[selectedPackage];
+      const paymentMethodNames = {
+        whatsapp: 'WhatsApp Payment',
+        bank: 'Transfer Bank',
+        ewallet: 'E-Wallet',
+        qris: 'QRIS'
+      };
+      
+      summary.innerHTML = `
+        <div class="border rounded-xl p-6">
+          <h4 class="font-semibold text-gray-900 mb-4">Detail Paket</h4>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="${pkg.bgColor} w-12 h-12 rounded-xl flex items-center justify-center">
+              ${pkg.icon}
+            </div>
+            <div>
+              <h5 class="font-semibold">${pkg.name}</h5>
+              <p class="text-sm text-gray-500">${pkg.desc}</p>
+              <p class="text-sm text-primary">Durasi: ${orderData.duration} bulan</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border rounded-xl p-6">
+          <h4 class="font-semibold text-gray-900 mb-4">Informasi Pembeli</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Nama:</span>
+              <span class="font-medium">${formData.get('name') || 'Belum diisi'}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Email:</span>
+              <span class="font-medium">${formData.get('email') || 'Belum diisi'}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">WhatsApp:</span>
+              <span class="font-medium">${formData.get('phone') || 'Belum diisi'}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Metode Pembayaran:</span>
+              <span class="font-medium">${paymentMethodNames[selectedPaymentMethod] || 'Belum dipilih'}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border rounded-xl p-6">
+          <h4 class="font-semibold text-gray-900 mb-4">Ringkasan Biaya</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Subtotal:</span>
+              <span class="font-medium">Rp ${orderData.subtotal.toLocaleString('id-ID')}</span>
+            </div>
+            ${orderData.discount > 0 ? `
+            <div class="flex justify-between">
+              <span class="text-gray-600">Diskon:</span>
+              <span class="font-medium text-green-600">-Rp ${orderData.discount.toLocaleString('id-ID')}</span>
+            </div>
+            ` : ''}
+            <hr>
+            <div class="flex justify-between text-lg">
+              <span class="font-semibold">Total:</span>
+              <span class="font-bold text-primary">Rp ${orderData.total.toLocaleString('id-ID')}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Complete order
+    function completeOrder() {
+      const formData = new FormData(document.getElementById('payment-form'));
+      const pkg = packages[selectedPackage];
+      
+      // Prepare WhatsApp message
+      const message = `Halo ShareX.ID, saya ingin melakukan pemesanan:
+
+📦 *Detail Paket:*
+- Layanan: ${pkg.name}
+- Durasi: ${orderData.duration} bulan
+- Total: Rp ${orderData.total.toLocaleString('id-ID')}
+
+👤 *Data Pembeli:*
+- Nama: ${formData.get('name') || 'Belum diisi'}
+- Email: ${formData.get('email') || 'Belum diisi'}  
+- WhatsApp: ${formData.get('phone') || 'Belum diisi'}
+
+💳 *Metode Pembayaran:*
+- ${document.querySelector('.payment-method.selected h4')?.textContent || 'Belum dipilih'}
+
+Mohon diproses ya, terima kasih! 🙏`;
+
+      // Redirect to WhatsApp
+      const whatsappUrl = `https://wa.me/6288814000400?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Scroll to Top Button functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+        scrollToTopBtn.classList.add('opacity-100');
+      } else {
+        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+        scrollToTopBtn.classList.remove('opacity-100');
+      }
+    });
+
+    // Scroll to top when button is clicked
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Check URL parameters for pre-selected package
+    const urlParams = new URLSearchParams(window.location.search);
+    const preSelectedPackage = urlParams.get('package');
+    
+    if (preSelectedPackage && packages[preSelectedPackage]) {
+      setTimeout(() => {
+        const packageCard = document.querySelector(`[data-package="${preSelectedPackage}"]`);
+        if (packageCard) {
+          packageCard.click();
+        }
+      }, 100);
+    }
+  </script>
+</body>
+</html>

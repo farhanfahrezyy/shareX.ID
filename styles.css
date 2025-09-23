@@ -1,6 +1,11 @@
 /* ShareX.ID - Custom Styles */
 /* Copyright © 2025 ShareX.ID™ by PT. FAHOVE TEKNOLOGI INDONESIA */
 
+/* Prevent horizontal overflow so side boundaries stay aligned */
+html, body {
+  overflow-x: hidden;
+}
+
 /* Color Gradients */
 .gradient-green {
   background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
