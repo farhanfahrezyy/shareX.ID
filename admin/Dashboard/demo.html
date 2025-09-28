@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareAkun Dashboard - Demo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">🚀 ShareAkun Admin Dashboard</h1>
+            <p class="text-gray-600 mb-6">
+                Modern, responsive admin dashboard untuk mengelola layanan shared account dengan desain yang clean dan functionality yang lengkap.
+            </p>
+            <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+                Buka Dashboard
+            </a>
+        </div>
+
+        <!-- Features -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">✨ Fitur Utama</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Responsive Design</h3>
+                    <p class="text-gray-600 text-sm">
+                        Mobile-first approach dengan adaptive layout untuk semua ukuran layar. Touch-friendly interface dengan sidebar yang dapat di-collapse.
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-palette text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Modern UI/UX</h3>
+                    <p class="text-gray-600 text-sm">
+                        Clean dan minimalist design dengan smooth animations, professional color scheme, dan intuitive navigation.
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-cogs text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Dynamic Loading</h3>
+                    <p class="text-gray-600 text-sm">
+                        Dynamic page loading dengan caching untuk performa optimal. Real-time search, form validation, dan error handling.
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-table text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Advanced Tables</h3>
+                    <p class="text-gray-600 text-sm">
+                        Table sorting, filtering, dan pagination. Row selection, hover effects, dan responsive design untuk data management.
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-window-maximize text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Modal System</h3>
+                    <p class="text-gray-600 text-sm">
+                        Reusable modal components dengan form validation, loading states, dan keyboard navigation (ESC to close).
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-puzzle-piece text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Component Based</h3>
+                    <p class="text-gray-600 text-sm">
+                        Modular structure dengan reusable components. Easy to maintain dan extend dengan clear separation of concerns.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Structure -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📁 Struktur Folder</h2>
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+<pre>admin/Dashboard/
+├── assets/
+│   ├── css/
+│   │   └── main.css          # Main stylesheet
+│   ├── js/
+│   │   ├── main.js           # Core JavaScript functionality
+│   │   └── page-loader.js    # Dynamic page loading
+│   └── images/               # Static images
+├── components/
+│   └── modal.html            # Reusable modal components
+├── pages/
+│   ├── customer/             # Customer management pages
+│   │   ├── pre-order.html
+│   │   ├── renew.html
+│   │   ├── waiting-list.html
+│   │   ├── aktif.html
+│   │   └── cancelled.html
+│   ├── groups/               # Groups & Accounts pages
+│   │   ├── groups.html
+│   │   ├── expired-account.html
+│   │   ├── expired-3-days.html
+│   │   └── expired-7-days.html
+│   ├── provider/             # Provider management pages
+│   │   ├── kategori-provider.html
+│   │   └── provider.html
+│   └── employee/             # Employee management pages
+│       └── employee.html
+├── index.html                # Main dashboard file
+└── README.md                 # Documentation</pre>
+            </div>
+        </div>
+
+        <!-- Pages -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📄 Halaman yang Tersedia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Customer Management</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Pre Order - Mengelola pesanan baru
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Renew - Mengelola pembaruan akun
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Waiting List - Antrian pesanan
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Aktif - Akun yang sedang aktif
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Cancelled - Pesanan yang dibatalkan
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Groups & Accounts</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Groups - Mengelola grup layanan
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Expired Account - Akun kedaluwarsa
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Expired in 3 Days - Notifikasi 3 hari
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Expired in 7 Days - Notifikasi 7 hari
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Provider Management</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Kategori Provider - Mengelola kategori
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Provider - Mengelola provider
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Employee Management</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Employee - Mengelola data admin
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🔧 Cara Penggunaan</h2>
+            <div class="space-y-6">
+                <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                    <h4 class="font-semibold text-gray-900 mb-2">1. Buka Dashboard</h4>
+                    <p class="text-gray-600 text-sm">Buka file <code class="bg-gray-100 px-2 py-1 rounded text-xs font-mono">admin/Dashboard/index.html</code> di browser</p>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                    <h4 class="font-semibold text-gray-900 mb-2">2. Navigasi</h4>
+                    <p class="text-gray-600 text-sm">Gunakan sidebar untuk navigasi antar halaman. Klik pada menu untuk expand/collapse section.</p>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                    <h4 class="font-semibold text-gray-900 mb-2">3. Interaksi</h4>
+                    <p class="text-gray-600 text-sm">Klik tombol untuk membuka modal, gunakan form untuk input data, klik pada tabel untuk sorting.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📱 Responsive Breakpoints</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-desktop text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Desktop</h3>
+                    <p class="text-gray-600 text-sm">> 1024px - Full sidebar dan layout</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tablet-alt text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Tablet</h3>
+                    <p class="text-gray-600 text-sm">768px - 1024px - Collapsible sidebar</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Mobile</h3>
+                    <p class="text-gray-600 text-sm">< 768px - Mobile-first design</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-white rounded-lg shadow-sm p-8 text-center">
+            <div class="max-w-2xl mx-auto">
+                <p class="text-gray-600 mb-6">
+                    <strong class="text-gray-900 text-lg">ShareAkun Admin Dashboard</strong><br>
+                    Modern, responsive admin dashboard untuk mengelola layanan shared account
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-rocket"></i>
+                        Buka Dashboard
+                    </a>
+                    <a href="README.md" class="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-book"></i>
+                        Dokumentasi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

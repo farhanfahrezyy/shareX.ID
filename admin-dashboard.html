@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareAkun - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out">
+            <div class="p-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-share-alt text-white text-lg"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-gray-800">ShareAkun</h1>
+                </div>
+            </div>
+            
+            <nav class="mt-6">
+                <div class="px-6">
+                    <div class="space-y-2">
+                        <!-- Customer Section -->
+                        <div class="mb-4">
+                            <button onclick="toggleSection('customer')" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-users text-gray-500"></i>
+                                    <span class="font-medium">Customer</span>
+                                </div>
+                                <i id="customer-arrow" class="fas fa-chevron-right text-gray-400 transition-transform"></i>
+                            </button>
+                            <div id="customer-menu" class="ml-6 mt-2 space-y-1 hidden">
+                                <a href="#" onclick="showPage('pre-order')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Pre Order
+                                </a>
+                                <a href="#" onclick="showPage('renew')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Renew
+                                </a>
+                                <a href="#" onclick="showPage('waiting-list')" class="block px-3 py-2 text-sm text-blue-600 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Waiting List
+                                </a>
+                                <a href="#" onclick="showPage('aktif')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Aktif
+                                </a>
+                                <a href="#" onclick="showPage('cancelled')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Cancelled
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Groups & Accounts Section -->
+                        <div class="mb-4">
+                            <button onclick="toggleSection('groups')" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-layer-group text-gray-500"></i>
+                                    <span class="font-medium">Groups & Accounts</span>
+                                </div>
+                                <i id="groups-arrow" class="fas fa-chevron-right text-gray-400 transition-transform"></i>
+                            </button>
+                            <div id="groups-menu" class="ml-6 mt-2 space-y-1 hidden">
+                                <a href="#" onclick="showPage('groups')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Groups
+                                </a>
+                                <a href="#" onclick="showPage('expired-account')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Expired Account
+                                </a>
+                                <a href="#" onclick="showPage('expired-3-days')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Expired in 3 Days
+                                </a>
+                                <a href="#" onclick="showPage('expired-7-days')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Expired in 7 Days
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Provider Section -->
+                        <div class="mb-4">
+                            <button onclick="toggleSection('provider')" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-building text-gray-500"></i>
+                                    <span class="font-medium">Provider</span>
+                                </div>
+                                <i id="provider-arrow" class="fas fa-chevron-right text-gray-400 transition-transform"></i>
+                            </button>
+                            <div id="provider-menu" class="ml-6 mt-2 space-y-1 hidden">
+                                <a href="#" onclick="showPage('kategori-provider')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Kategori Provider
+                                </a>
+                                <a href="#" onclick="showPage('provider')" class="block px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <i class="fas fa-circle text-xs mr-2"></i>Provider
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Employee Section -->
+                        <div class="mb-4">
+                            <a href="#" onclick="showPage('employee')" class="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors">
+                                <i class="fas fa-user-tie text-gray-500"></i>
+                                <span class="font-medium">Employee</span>
+                            </a>
+                        </div>
+
+                        <!-- Logout -->
+                        <div class="mt-8">
+                            <a href="#" class="flex items-center space-x-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                <i class="fas fa-sign-out-alt text-red-500"></i>
+                                <span class="font-medium">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <button id="sidebar-toggle" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-bars text-lg"></i>
+                            </button>
+                            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                                <span id="breadcrumb">Customer > Waiting List</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <input type="text" placeholder="Cari Order..." class="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto bg-gray-50">
+                <!-- Waiting List Page (Default) -->
+                <div id="waiting-list-page" class="p-6">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Waiting List</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pembayaran</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link Pembayaran</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Akun</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                PAID
+                                            </span>
+                                            <div class="mt-1">
+                                                <button class="text-blue-600 hover:text-blue-800 text-xs">Bukti Pelunasan</button>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                            <a href="#" class="hover:underline">http://localhost/seakun_new/mobile/invoice2.php?invoice_code=a804934e-5241-41e9-9c27-479013b65784</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                WAITING LIST
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button onclick="handleBuatAkun()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Buat Akun
+                                            </button>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button onclick="handleAddToGroup()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Add to Group
+                                            </button>
+                                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                                                Done
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                UNPAID
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                            <a href="#" class="hover:underline">http://localhost/seakun_new/mobile/invoice2.php?invoice_code=a804934e-5241-41e9-9c27-479013b65784</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                WAITING LIST
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button onclick="handleBuatAkun()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Buat Akun
+                                            </button>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button onclick="handleAddToGroup()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Edit Group
+                                            </button>
+                                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                                                Done
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                PAID
+                                            </span>
+                                            <div class="mt-1">
+                                                <button class="text-blue-600 hover:text-blue-800 text-xs">Bukti Pelunasan</button>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                            <a href="#" class="hover:underline">http://localhost/seakun_new/mobile/invoice2.php?invoice_code=a804934e-5241-41e9-9c27-479013b65784</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                WAITING LIST
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button onclick="handleBuatAkun()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Buat Akun
+                                            </button>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button onclick="handleAddToGroup()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Edit Group
+                                            </button>
+                                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                                                Done
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pre Order Page -->
+                <div id="pre-order-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Pre Order</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice Number</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Pesan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Expired</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga Provider</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Member</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga Satuan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Biaya</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV #140</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Sopipi</div>
+                                            <div class="text-gray-500">sopipi@gmail.com</div>
+                                            <div class="text-gray-500">6281997930005</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Netflix</div>
+                                            <div class="text-gray-500">1 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">23 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rp. 167.568</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">4 member</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rp. 41.892</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rp. 15.740</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Groups Page -->
+                <div id="groups-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Groups</h2>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Buat Group Baru</span>
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tersedia</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Host Username</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Host Password</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Info</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Berlaku</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Youtube Premium #3</div>
+                                            <div class="text-sm text-gray-500">Youtube Premium - 3 bulan</div>
+                                            <button class="mt-2 text-blue-600 hover:text-blue-800 text-sm">Daftar Member</button>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1/5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Tambah Akun Host
+                                            </button>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expired Account Page -->
+                <div id="expired-account-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Expired Account</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Akun</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Info</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expired</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Anti Virus</div>
+                                            <div class="text-sm text-gray-500">Paket A - 3 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">AV 3 Bln #2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Peanut</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">peanadd</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">123123</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">19 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Perbarui
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Provider Page -->
+                <div id="provider-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Provider</h2>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Provider Baru</span>
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Provider</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Logo</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipe</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Produk</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Netflix</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="w-10 h-10 bg-red-600 rounded flex items-center justify-center">
+                                                <span class="text-white font-bold">N</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Entertainment</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">8</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Renew Page -->
+                <div id="renew-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Renew</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice Number</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Pesan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV #R001</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>John Doe</div>
+                                            <div class="text-gray-500">john@example.com</div>
+                                            <div class="text-gray-500">628123456789</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Netflix Premium</div>
+                                            <div class="text-gray-500">1 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                PENDING
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Process
+                                            </button>
+                                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                                                Complete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aktif Page -->
+                <div id="aktif-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Aktif</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice Number</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Aktif</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expired</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV #A001</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Jane Smith</div>
+                                            <div class="text-gray-500">jane@example.com</div>
+                                            <div class="text-gray-500">628987654321</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Spotify Premium</div>
+                                            <div class="text-gray-500">6 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Spotify Premium #5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20 Maret 2025</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                View Details
+                                            </button>
+                                            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm">
+                                                Extend
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cancelled Page -->
+                <div id="cancelled-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Cancelled</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice Number</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Cancel</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alasan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV #C001</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>Bob Wilson</div>
+                                            <div class="text-gray-500">bob@example.com</div>
+                                            <div class="text-gray-500">628555123456</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <div>YouTube Premium</div>
+                                            <div class="text-gray-500">3 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Customer Request</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                View Details
+                                            </button>
+                                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                                                Restore
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expired in 3 Days Page -->
+                <div id="expired-3-days-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Expired in 3 Days</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Akun</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expired</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Netflix</div>
+                                            <div class="text-sm text-gray-500">user host TV - 1 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">user host 1 bln #12</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Alice Johnson</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">alice123</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Perbarui
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expired in 7 Days Page -->
+                <div id="expired-7-days-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Expired in 7 Days</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Akun</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expired</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Spotify Premium</div>
+                                            <div class="text-sm text-gray-500">6 bulan</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Spotify Premium #5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Charlie Brown</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">charlie456</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">29 September 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                                Perbarui
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kategori Provider Page -->
+                <div id="kategori-provider-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Kategori Provider</h2>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Kategori Baru</span>
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Entertainment</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Productivity</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Page -->
+                <div id="employee-page" class="p-6 hidden">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Employee</h2>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Admin Baru</span>
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Admin</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">test</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">wanda</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal for Upload Bukti Pelunasan -->
+    <div id="upload-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Kirim Bukti Pelunasan</h3>
+                    <button onclick="closeModal('upload-modal')" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pilih File</label>
+                    <input type="file" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal('upload-modal')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        Tutup
+                    </button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Kirim
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Create Account -->
+    <div id="create-account-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Tambah data Akun</h3>
+                    <button onclick="closeModal('create-account-modal')" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-4">Silahkan input data dengan tepat</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Group</label>
+                            <input type="text" value="Netflix User Host TV #3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Customer</label>
+                            <input type="text" value="Sopipi / sopipi@gmail.com / 6281997900005" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Information (opsional)</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username Akun Produk</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
+                            <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password Akun Produk</label>
+                            <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Expired</label>
+                            <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal('create-account-modal')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        Kembali
+                    </button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add to Group -->
+    <div id="add-to-group-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Tambah Pelanggan ke Group</h3>
+                    <button onclick="closeModal('add-to-group-modal')" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-4">Silahkan pilih group yang tersedia</p>
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-700 mb-2">INV #9356</div>
+                        <div class="text-sm text-gray-700 mb-2">Netflix - User Host TV 1 bulan</div>
+                        <div class="text-sm text-gray-700 mb-2">Sopir</div>
+                        <div class="text-sm text-gray-700 mb-2">sopir@gmail.com</div>
+                        <div class="text-sm text-gray-700 mb-4">6281997900005</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Group</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>user host 123 - tersedia 0 orang</option>
+                            <option>user host 1 bin #12 - tersedia 0 orang</option>
+                            <option selected>Netflix User Host TV #3 - tersedia 3 orang</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal('add-to-group-modal')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        Kembali
+                    </button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Section toggle functionality
+        function toggleSection(sectionName) {
+            const menu = document.getElementById(sectionName + '-menu');
+            const arrow = document.getElementById(sectionName + '-arrow');
+            
+            menu.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-90');
+        }
+
+        // Page navigation functionality
+        function showPage(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('[id$="-page"]');
+            pages.forEach(page => page.classList.add('hidden'));
+            
+            // Show selected page
+            const selectedPage = document.getElementById(pageName + '-page');
+            if (selectedPage) {
+                selectedPage.classList.remove('hidden');
+            }
+            
+            // Update breadcrumb
+            const breadcrumb = document.getElementById('breadcrumb');
+            const breadcrumbMap = {
+                'pre-order': 'Customer > Pre Order',
+                'renew': 'Customer > Renew',
+                'waiting-list': 'Customer > Waiting List',
+                'aktif': 'Customer > Aktif',
+                'cancelled': 'Customer > Cancelled',
+                'groups': 'Groups & Accounts > Groups',
+                'expired-account': 'Groups & Accounts > Expired Account',
+                'expired-3-days': 'Groups & Accounts > Expired in 3 Days',
+                'expired-7-days': 'Groups & Accounts > Expired in 7 Days',
+                'kategori-provider': 'Provider > Kategori Provider',
+                'provider': 'Provider > Provider',
+                'employee': 'Employee'
+            };
+            
+            if (breadcrumbMap[pageName]) {
+                breadcrumb.textContent = breadcrumbMap[pageName];
+            }
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Button click handlers
+        function handleUploadBukti() {
+            openModal('upload-modal');
+        }
+
+        function handleBuatAkun() {
+            openModal('create-account-modal');
+        }
+
+        function handleAddToGroup() {
+            openModal('add-to-group-modal');
+        }
+
+        // Update button actions in the waiting list table
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('waiting-list');
+            
+            // Add click handlers to buttons
+            const uploadButtons = document.querySelectorAll('button:contains("Upload Bukti")');
+            const buatAkunButtons = document.querySelectorAll('button:contains("Buat Akun")');
+            const addToGroupButtons = document.querySelectorAll('button:contains("Add to Group")');
+            
+            // Since we can't use :contains in querySelector, we'll add onclick attributes directly in HTML
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!-- Modal Components -->
+<!-- Upload Bukti Pelunasan Modal -->
+<div class="modal" data-modal-id="upload-modal" data-modal-backdrop>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Kirim Bukti Pelunasan</h3>
+            <button class="modal-close" data-modal-close>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Pilih File</label>
+                <input type="file" class="form-input" accept="image/*,.pdf">
+                <p class="text-sm text-gray-500 mt-1">Format yang didukung: JPG, PNG, PDF (Max 5MB)</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Tutup</button>
+            <button class="btn btn-primary" data-loading>
+                <i class="fas fa-upload mr-2"></i>Kirim
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Create Account Modal -->
+<div class="modal" data-modal-id="create-account-modal" data-modal-backdrop>
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3 class="modal-title">Tambah data Akun</h3>
+            <button class="modal-close" data-modal-close>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="text-sm text-gray-600 mb-4">Silahkan input data dengan tepat</p>
+            <form data-form>
+                <div class="form-grid form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Group</label>
+                        <input type="text" class="form-input" value="Netflix User Host TV #3" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Customer</label>
+                        <input type="text" class="form-input" value="Sopipi / sopipi@gmail.com / 6281997900005" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" data-validate="required">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Information (opsional)</label>
+                        <input type="text" class="form-input" placeholder="Masukkan informasi tambahan">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username Akun Produk</label>
+                        <input type="text" class="form-input" data-validate="required|min:3" placeholder="Masukkan username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-input" data-validate="required">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password Akun Produk</label>
+                        <input type="password" class="form-input" data-validate="required|min:3" placeholder="Masukkan password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Expired</label>
+                        <input type="date" class="form-input" data-validate="required">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Kembali</button>
+            <button class="btn btn-success" type="submit" form="create-account-form" data-loading>
+                <i class="fas fa-save mr-2"></i>Submit
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Group Modal -->
+<div class="modal" data-modal-id="add-to-group-modal" data-modal-backdrop>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Tambah Pelanggan ke Group</h3>
+            <button class="modal-close" data-modal-close>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="text-sm text-gray-600 mb-4">Silahkan pilih group yang tersedia</p>
+            <div class="mb-4 p-3 bg-gray-50 rounded-lg">
+                <div class="text-sm text-gray-700 mb-1"><strong>INV #9356</strong></div>
+                <div class="text-sm text-gray-700 mb-1">Netflix - User Host TV 1 bulan</div>
+                <div class="text-sm text-gray-700 mb-1">Sopir</div>
+                <div class="text-sm text-gray-700 mb-1">sopir@gmail.com</div>
+                <div class="text-sm text-gray-700">6281997900005</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Group</label>
+                <select class="form-select" data-validate="required">
+                    <option value="">Pilih Group</option>
+                    <option value="user-host-123">user host 123 - tersedia 0 orang</option>
+                    <option value="user-host-1-bin-12">user host 1 bin #12 - tersedia 0 orang</option>
+                    <option value="netflix-user-host-tv-3" selected>Netflix User Host TV #3 - tersedia 3 orang</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Kembali</button>
+            <button class="btn btn-success" data-loading>
+                <i class="fas fa-plus mr-2"></i>Submit
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Create Group Modal -->
+<div class="modal" data-modal-id="create-group-modal" data-modal-backdrop>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Buat Group Baru</h3>
+            <button class="modal-close" data-modal-close>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="text-sm text-gray-600 mb-4">Sebelum membuat akun host, buatlah group terlebih dahulu</p>
+            <form data-form>
+                <div class="form-group">
+                    <label class="form-label">Produk</label>
+                    <select class="form-select" data-validate="required">
+                        <option value="">Pilih Produk</option>
+                        <option value="netflix-tv">Netflix - User Reguler TV 1 bulan</option>
+                        <option value="netflix-non-tv">Netflix - User Reguler Non TV 1 bulan</option>
+                        <option value="spotify-premium">Spotify Premium - 6 bulan</option>
+                        <option value="youtube-premium">YouTube Premium - 3 bulan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Jumlah Member</label>
+                    <input type="number" class="form-input" data-validate="required|min:1" placeholder="Masukkan jumlah member" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Durasi (bulan)</label>
+                    <input type="number" class="form-input" data-validate="required|min:1" placeholder="Masukkan durasi" min="1" max="12">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Batal</button>
+            <button class="btn btn-success" data-loading>
+                <i class="fas fa-plus mr-2"></i>Buat Group
+            </button>
+        </div>
+    </div>
+</div>
+

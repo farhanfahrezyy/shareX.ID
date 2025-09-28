@@ -54,12 +54,20 @@
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
-# Force HTTPS (uncomment when SSL is ready)
-# <IfModule mod_rewrite.c>
-#     RewriteEngine On
-#     RewriteCond %{HTTPS} off
-#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# </IfModule>
+# URL Rewriting for Admin Dashboard
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect admin/Dashboard/ to admin/Dashboard/index.html
+    RewriteRule ^admin/Dashboard/?$ admin/Dashboard/index.html [L]
+    
+    # Handle admin dashboard routes
+    RewriteRule ^admin/Dashboard/(.*)$ admin/Dashboard/index.html [L]
+    
+    # Force HTTPS (uncomment when SSL is ready)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
 
 # Remove Server Signature
 ServerTokens Prod
